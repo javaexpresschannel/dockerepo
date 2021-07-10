@@ -1,0 +1,80 @@
+
+
+
+To run Jar file in every operatoin system
+-------------------------------------------
+1) JDK Software Requried
+2) Jar file location
+3) java command
+
+
+Docker Image Commands
+---------------------
+docker images 
+docker images -q
+docker rmi -f hello-world : It will remove forcefully from docker images 
+docker inspect imageName  : To retireve low level information for docker imageName
+docker history imageName : History of Docker Images 
+
+docker ps        : display running containers 
+docker ps -a     : stopped containers
+
+Docker Container Commands 
+-------------------------
+docker run -it containerName                        : it will login to unix box and if you dont want to exit container then 
+        use below shortcut  - ctrl + pq
+
+docker run --name javaexpress_ubuntu -it -d ubuntu  : Provide name of the cotainer and background it will run 
+docker exec -it containerId/NameoftheContainer bash : you can login into running container
+    docker exec -it 81db2efd8133 bash
+docker stop containerId                              : stop existing container 
+docker rm -f  containerId                            : removed forcefully existing container 
+docker top containerId                                  : fetch process id from running contianer 
+docker container stats containerId                    : current statistics of container 
+
+
+How to Dockerize Spring Boot Application ?
+
+Docker File 
+-------------
+FROM openjdk:8
+COPY ./target/SpringBoot_DockerImage.jar SpringBoot_DockerImage.jar
+ENTRYPOINT ["java","-jar","SpringBoot_DockerImage.jar"]
+
+
+docker login
+docker logout 
+
+How to build a docker imageName from docker file ?
+    cd /Users/bhaskar/Desktop/docker/workspace/SpringBoot-Docker
+    docker build -t anvbhaskar/springboot_h2_docker:1.0.0 .
+
+How to run Spring Boot application in docker conatiner ?
+    docker run -p 8087:1111 -d anvbhaskar/springboot_h2_docker:1.0.0
+    docker run -p 8089:1111 -d anvbhaskar/springboot_h2_docker:1.0.0
+    docker container logs containerId 
+
+How to push doker image to Docker registry ?
+    docker login 
+    docker push anvbhaskar/springboot_h2_docker:1.0.0
+
+How to pull docker image from Docker Registry ?
+    docker pull anvbhaskar/springboot_h2_docker
+
+
+Docker system Comamnds 
+-----------------------
+docker system df
+docker system prune -a
+
+TO delete all containers including its volume data 
+docker rm -vf $(docker ps -a -q)
+
+To delete all docker images 
+docker rmi -f $(docker images -a -q)
+
+To Simple clear everything do 
+docker system prune --all
+
+Docker Network
+Docker Volumes 
